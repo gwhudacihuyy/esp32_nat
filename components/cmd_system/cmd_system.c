@@ -228,7 +228,7 @@ static int deep_sleep(int argc, char **argv)
     if (deep_sleep_args.wakeup_gpio_num->count)
     {
         int io_num = deep_sleep_args.wakeup_gpio_num->ival[0];
-        if (!GPIO_IS_VALID_GPIO(io_num))
+        if (!RTC_GPIO_IS_VALID_GPIO(io_num))
         {
             ESP_LOGE(TAG, "GPIO %d is not a valid IO", io_num);
             return 1;
@@ -324,7 +324,7 @@ static int light_sleep(int argc, char **argv)
         ESP_LOGI(TAG, "Enabling wakeup on GPIO%d, wakeup on %s level",
                  io_num, level ? "HIGH" : "LOW");
 
-        ESP_ERROR_CHECK(gpio_wakeup_enable(io_num, level ? GPIO_INTR_HIGH_LEVEL : GPIO_INTR_LOW_LEVEL));
+        ESP_ERROR_CHECK(rtc_gpio_wakeup_enable(io_num, level ? RTC_GPIO_INTR_HIGH_LEVEL : RTC_GPIO_INTR_LOW_LEVEL));
     }
     if (io_count > 0)
     {
